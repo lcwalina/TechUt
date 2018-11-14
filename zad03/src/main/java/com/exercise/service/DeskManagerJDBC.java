@@ -115,6 +115,32 @@ public class DeskManagerJDBC implements  DeskManager{
 		return desks;
 	}
 
+	@Override
+	public void addAllDesks(List<Desk> desks) {
+
+		try {
+			connection.setAutoCommit(false);
+			for (Desk desk : desks) {
+                addDeskStmt.setString(1,desk.getName());
+                addDeskStmt.setDate(2, desk.getProduction_date());
+                addDeskStmt.setInt(3, desk.getHeight());
+                addDeskStmt.setInt(4, desk.getWidth());
+                addDeskStmt.setInt(5, desk.getThickness());
+                addDeskStmt.setBoolean(6, desk.isAre_legs_removable());
+			}
+			connection.commit();
+
+		} catch (SQLException exception) {
+
+			try {
+				connection.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+				//!!!! ALARM
+			}
+		}
+
+	}
     @Override
     public void updateDesk(int id, String name, Date production_date, int height,  int width,  int thickness,  boolean are_legs_removable){
         try {

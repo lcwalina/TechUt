@@ -6,6 +6,10 @@ import java.util.List;
 public interface DeskManager {
         public int addDesk(Desk desk);
         public List<Desk> getAllDesks();
+
+        // all or none
+        public void addAllDesks(List<Desk> desks);
+
         public void clearDesks();
         public void deleteDesk(int id);
         public void updateDesk(int id, String name, Date production_date, int height,  int width,  int thickness,  boolean are_legs_removable);
